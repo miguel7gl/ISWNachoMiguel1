@@ -27,7 +27,7 @@ public class Registro extends JPanel implements ActionListener, WindowListener {
 
     public Registro(JVentanaApp ventana) {
         this.ventana=ventana;
-        fondo = Toolkit.getDefaultToolkit().getImage("./././src/TheGame.jpg");
+        fondo = Toolkit.getDefaultToolkit().getImage("./fotofondo.jpg");
         fondo = fondo.getScaledInstance(800, 500, java.awt.Image.SCALE_SMOOTH);
 
         JbtnRegistrarse.addActionListener(this);

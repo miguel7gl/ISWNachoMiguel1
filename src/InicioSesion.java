@@ -21,8 +21,8 @@ public class InicioSesion extends JPanel implements ActionListener, WindowListen
 
     public InicioSesion(JVentanaApp JVentana)
     {
-        //fondo = Toolkit.getDefaultToolkit().getImage("./././src/TheGame.jpg");
-        //fondo = fondo.getScaledInstance(800,500,java.awt.Image.SCALE_SMOOTH);
+        fondo = Toolkit.getDefaultToolkit().getImage("./fotofondo.jpg");
+        fondo = fondo.getScaledInstance(800,500,java.awt.Image.SCALE_SMOOTH);
 
         JbtnInicio.addActionListener(this);
 

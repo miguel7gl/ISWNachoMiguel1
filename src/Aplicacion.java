@@ -8,5 +8,6 @@ public class Aplicacion {
         Menu menu= new Menu(ventana);
         ventana.add(menu);
         ventana.setVisible(true);
+
     }
 }
