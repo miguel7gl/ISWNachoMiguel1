@@ -1,7 +1,9 @@
+package code;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+
 public class MenuPlanes extends JPanel implements ActionListener {
     private JVentanaApp ventana;
     public JButton crear;

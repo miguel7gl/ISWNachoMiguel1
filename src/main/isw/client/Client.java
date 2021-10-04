@@ -12,9 +12,9 @@ import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 
-import icai.dtc.isw.configuration.PropertiesISW;
-import icai.dtc.isw.domain.Customer;
-import icai.dtc.isw.message.Message;
+import main.isw.configuration.PropertiesISW;
+import main.isw.domain.Customer;
+import main.isw.message.Message;
 
 public class Client {
 	private String host;

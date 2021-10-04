@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import icai.dtc.isw.configuration.PropertiesISW;
+import main.isw.configuration.PropertiesISW;
 
 public class ConnectionDAO {
 	private static ConnectionDAO connectionDAO;

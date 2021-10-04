@@ -1,3 +1,5 @@
+package code;
+
 public class Aplicacion {
     public static void main(String[] args) {
         JVentanaApp ventana= new JVentanaApp();
