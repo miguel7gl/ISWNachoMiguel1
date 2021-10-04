@@ -1,7 +1,3 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-
 public class Aplicacion {
     public static void main(String[] args) {
         JVentanaApp ventana= new JVentanaApp();

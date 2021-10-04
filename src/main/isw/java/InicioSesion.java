@@ -17,10 +17,13 @@ public class InicioSesion extends JPanel implements ActionListener, WindowListen
     JLabel LabelPassword = new JLabel("Contraseña:");
 
     Image fondo;
-    Registro JVentanaApp;
+    JVentanaApp ventana;
 
-    public InicioSesion(JVentanaApp JVentana)
+    public InicioSesion(JVentanaApp ventana)
     {
+        super();
+        this.ventana=ventana;
+
         fondo = Toolkit.getDefaultToolkit().getImage("./fotofondo.jpg");
         fondo = fondo.getScaledInstance(800,500,java.awt.Image.SCALE_SMOOTH);
 
@@ -31,11 +34,11 @@ public class InicioSesion extends JPanel implements ActionListener, WindowListen
         password.setBounds(385,170,130,30);
         LabelNombre.setBounds(307,130,130,30);
         LabelPassword.setBounds(296,170,130,30);
-        JVentana.add(JbtnInicio);
-        JVentana.add(nombre);
-        JVentana.add(password);
-        JVentana.add(LabelNombre);
-        JVentana.add(LabelPassword);
+        ventana.add(JbtnInicio);
+        ventana.add(nombre);
+        ventana.add(password);
+        ventana.add(LabelNombre);
+        ventana.add(LabelPassword);
     }
 
     @Override
@@ -49,6 +52,11 @@ public class InicioSesion extends JPanel implements ActionListener, WindowListen
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == JbtnInicio) {
             System.out.println("Botón Iniciar sesión pulsado");
+            ventana.setVisible(false);
+            JVentanaApp ventanaPlan = new JVentanaApp();
+            MenuPlanes inicioMenu = new MenuPlanes(ventanaPlan);
+            ventanaPlan.add(inicioMenu);
+            ventanaPlan.setVisible(true);
         }
     }
 

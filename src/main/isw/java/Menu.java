@@ -2,8 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.Graphics;
-import java.awt.*;
-
 
 
 public class Menu extends JPanel  implements ActionListener{
@@ -12,7 +10,6 @@ public class Menu extends JPanel  implements ActionListener{
     //private Image fondo;
     public JButton registro;
     public JButton login;
-    public JPanel panel;
     public Image fondo;
 
 
@@ -26,7 +23,7 @@ public class Menu extends JPanel  implements ActionListener{
 
         fondo = Toolkit.getDefaultToolkit().getImage("./fotofondo.jpg");
         fondo = fondo.getScaledInstance(800, 500, java.awt.Image.SCALE_SMOOTH);
-        registro=new JButton("Registrarse");
+        registro=new JButton("REGISTRARSE");
         login=new JButton("LOG IN ");
         registro.setBounds(290, 210, 150, 30);
         login.setBounds(290, 170, 150, 30);
