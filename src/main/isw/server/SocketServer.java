@@ -48,10 +48,18 @@ public class SocketServer extends Thread {
 		    		session.put("Customer",lista);
 		    		mensajeOut.setSession(session);
 		    		objectOutputStream.writeObject(mensajeOut);		    		
-		    	break;
-		    	
-		    	
-		    	default:
+		    		break;
+				case "/setCustomer":
+					 customerControler=new CustomerControler();
+					 lista=new ArrayList<Customer>();
+					 customerControler.setCustomer(lista);
+					 mensajeOut.setContext("/setCustomerResponse");
+					 session=new HashMap<String, Object>();
+					 session.put("Customer",lista);
+					 mensajeOut.setSession(session);
+					 objectOutputStream.writeObject(mensajeOut);
+					 break;
+				default:
 		    		System.out.println("\nParámetro no encontrado");
 		    		break;
 		    }

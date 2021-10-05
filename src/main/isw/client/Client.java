@@ -34,7 +34,8 @@ public class Client {
 		
 		Message mensajeEnvio=new Message();
 		Message mensajeVuelta=new Message();
-		mensajeEnvio.setContext("/getCustomer");
+		//mensajeEnvio.setContext("/getCustomer");
+		mensajeEnvio.setContext("/setCustomer");
 		mensajeEnvio.setSession(session);
 		cliente.sent(mensajeEnvio,mensajeVuelta);
 		
@@ -43,10 +44,13 @@ public class Client {
 			case "/getCustomerResponse":
 				ArrayList<Customer> customerList=(ArrayList<Customer>)(mensajeVuelta.getSession().get("Customer"));
 				 for (Customer customer : customerList) {
-					 System.out.println("He leído el nombre: "+customer.getNombre()+" con apellido: "+customer.getApellido()+" con contraseña: "+customer.getPassword());
+					 System.out.println("He leído el nombre: "+customer.getNombre()+" "+customer.getApellido()+" con contraseña: "+customer.getPassword());
 					} 
 				break;
-				
+			case "/setCustomerResponse":
+				 customerList=(ArrayList<Customer>)(mensajeVuelta.getSession().get("Customer"));
+				 System.out.println("Se ha actualizado la base de datos");
+				break;
 			default:
 				Logger.getRootLogger().info("Option not found");
 				System.out.println("\nError a la vuelta");
