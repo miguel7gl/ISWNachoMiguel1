@@ -10,10 +10,12 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import code.JVentanaApp;
+import code.Registro;
 import main.isw.controler.CustomerControler;
 import main.isw.domain.Customer;
 import main.isw.message.Message;
-
+import code.Registro;
 public class SocketServer extends Thread {
 	public static final int PORT_NUMBER = 8081;
 
@@ -38,6 +40,8 @@ public class SocketServer extends Thread {
 		    //Object to return informations 
 		    ObjectOutputStream objectOutputStream = new ObjectOutputStream(out);
 		    Message mensajeOut=new Message();
+		    JVentanaApp ventana=new JVentanaApp();
+			Registro r=new Registro(ventana);
 		    switch (mensajeIn.getContext()) {
 		    	case "/getCustomer":
 		    		CustomerControler customerControler=new CustomerControler();
@@ -52,7 +56,10 @@ public class SocketServer extends Thread {
 				case "/setCustomer":
 					 customerControler=new CustomerControler();
 					 lista=new ArrayList<Customer>();
-					 customerControler.setCustomer(lista);
+					 System.out.println(r.getNombre());
+					 Customer customer=new Customer(r.getNombre(),r.getApellido(),r.getPassword());
+					 System.out.println(r.getNombre());
+					 customerControler.setCustomer(lista,customer.getNombre(),customer.getApellido(),customer.getPassword());
 					 mensajeOut.setContext("/setCustomerResponse");
 					 session=new HashMap<String, Object>();
 					 session.put("Customer",lista);

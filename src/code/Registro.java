@@ -1,5 +1,11 @@
 package code;
 
+import main.isw.configuration.PropertiesISW;
+import main.isw.dao.CustomerDAO;
+import main.isw.controler.CustomerControler;
+import main.isw.domain.Customer;
+import main.isw.client.Client;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,7 +28,7 @@ public class Registro extends JPanel implements ActionListener, WindowListener {
     String nombreTxt;
     String apellido1Txt;
     String passwordTxt;
-
+    Customer usuario;
     Image fondo;
     Registro registro;
     public JVentanaApp ventana;
@@ -49,7 +55,9 @@ public class Registro extends JPanel implements ActionListener, WindowListener {
         ventana.add(LabelApellido1);
         ventana.add(LabelPassword);
     }
+    public Registro(){
 
+    }
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -65,7 +73,14 @@ public class Registro extends JPanel implements ActionListener, WindowListener {
             apellido1Txt = apellido1.getText();
             passwordTxt = password.getText();
 
-            System.out.println(nombreTxt + " " + apellido1Txt + " " + passwordTxt);
+           // usuario= new Customer(nombreTxt,apellido1Txt,passwordTxt);
+
+            //Parte para actualizar la tabla con un nuevo usuario
+
+            Client.enviarPeticion("/setCustomer");
+
+
+            System.out.println("Nombre: "+nombreTxt + " " + apellido1Txt + " " + passwordTxt);
             ventana.setVisible(false);
             JVentanaApp ventanaLog = new JVentanaApp();
             InicioSesion inicioSesion = new InicioSesion(ventanaLog);
@@ -73,8 +88,18 @@ public class Registro extends JPanel implements ActionListener, WindowListener {
             ventanaLog.setVisible(true);
         }
     }
-
-
+    public Customer getUsuario(){
+        return this.usuario;
+    }
+    public String getNombre(){
+        return this.nombreTxt;
+    }
+    public String getApellido(){
+        return this.apellido1Txt;
+    }
+    public String getPassword(){
+        return this.passwordTxt;
+    }
     @Override
     public void windowOpened(WindowEvent e) {
 

@@ -21,7 +21,7 @@ public class Client {
 	private int port;
 	final static Logger logger = Logger.getLogger(Client.class);
 
-	public static void main(String args[]) {
+	public static void enviarPeticion(String peticion) {
 		//Configure connections
 		String host = PropertiesISW.getInstance().getProperty("host");
 		int port = Integer.parseInt(PropertiesISW.getInstance().getProperty("port"));
@@ -35,7 +35,7 @@ public class Client {
 		Message mensajeEnvio=new Message();
 		Message mensajeVuelta=new Message();
 		//mensajeEnvio.setContext("/getCustomer");
-		mensajeEnvio.setContext("/setCustomer");
+		mensajeEnvio.setContext(peticion);
 		mensajeEnvio.setSession(session);
 		cliente.sent(mensajeEnvio,mensajeVuelta);
 		
@@ -48,7 +48,6 @@ public class Client {
 					} 
 				break;
 			case "/setCustomerResponse":
-				 customerList=(ArrayList<Customer>)(mensajeVuelta.getSession().get("Customer"));
 				 System.out.println("Se ha actualizado la base de datos");
 				break;
 			default:
