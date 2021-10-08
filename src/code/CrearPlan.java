@@ -1,10 +1,13 @@
 package code;
+import main.isw.client.Client;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.HashMap;
 
 public class CrearPlan extends JPanel implements ActionListener,WindowListener {
     private JVentanaApp ventana;
@@ -16,6 +19,17 @@ public class CrearPlan extends JPanel implements ActionListener,WindowListener {
     public Image fondo;
     public ButtonGroup bg;
     JScrollPane scroll;
+
+    String nombrePlanTxt;
+    String fechaTxt;
+    String horaTxt;
+    String lugarTxt;
+    String capacidadTxt;
+    String descripcionTxt;
+    String privacidadTxt;
+
+
+
     public static void main(String[] args) {
 
         JVentanaApp ventana1 = new JVentanaApp();
@@ -84,6 +98,11 @@ public class CrearPlan extends JPanel implements ActionListener,WindowListener {
         privado.setOpaque(false);
         privado.setForeground(Color.YELLOW);
         publico.setForeground(Color.YELLOW);
+
+        //Para detectar lo que se ha seleccionado
+        publico.setActionCommand("publico");
+        privado.setActionCommand("privado");
+
         ventana.add(publico);
         ventana.add(privado);
         //JTextfields
@@ -122,6 +141,29 @@ public class CrearPlan extends JPanel implements ActionListener,WindowListener {
             System.out.println("Boton crear pulsado");
             JOptionPane.showMessageDialog(null,"Plan creado");
 
+            //f(privado)
+
+            nombrePlanTxt = nombrePlan.getText();
+            fechaTxt = fecha.getText();
+            lugarTxt = lugar.getText();
+            horaTxt = hora.getText();
+            capacidadTxt = capacidad.getText();
+            privacidadTxt = bg.getSelection().getActionCommand();
+            descripcionTxt = descripcion.getText();
+            System.out.println(nombrePlanTxt+"\n"+fechaTxt+"\n"+lugarTxt+"\n"+horaTxt+"\n"+capacidadTxt+"\n"+privacidadTxt+"\n"+descripcionTxt);
+
+            //Parte para actualizar la tabla con un nuevo usuario
+            //Creacion de un hasmap para almacenar los datos y se envian al cliente
+            HashMap<String,Object> session =new HashMap<String, Object>();
+            session.put("nombre", (Object)nombrePlanTxt);
+            session.put("fecha",(Object)fechaTxt);
+            session.put("lugar",(Object)lugarTxt);
+            session.put("hora",(Object)horaTxt);
+            session.put("capacidad",(Object)capacidadTxt);
+            session.put("privacidad",(Object)privacidadTxt);
+            session.put("descripcion",(Object)descripcionTxt);
+
+            Client.enviarPeticion("/setCustomer",session);
         }
     }
 

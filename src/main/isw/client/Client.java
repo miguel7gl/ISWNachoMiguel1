@@ -21,7 +21,7 @@ public class Client {
 	private int port;
 	final static Logger logger = Logger.getLogger(Client.class);
 
-	public static void enviarPeticion(String peticion) {
+	public static void enviarPeticion(String peticion,HashMap<String,Object> session) {
 		//Configure connections
 		String host = PropertiesISW.getInstance().getProperty("host");
 		int port = Integer.parseInt(PropertiesISW.getInstance().getProperty("port"));
@@ -29,7 +29,7 @@ public class Client {
 		//Create a cliente class
 		Client cliente=new Client(host, port);
 		
-		HashMap<String,Object> session=new HashMap<String, Object>();
+
 		//session.put("/getCustomer","");
 		
 		Message mensajeEnvio=new Message();
@@ -48,13 +48,16 @@ public class Client {
 					} 
 				break;
 			case "/setCustomerResponse":
-				 System.out.println("Se ha actualizado la base de datos");
+				 System.out.println("Se ha actualizado la base de datos de usuarios");
+				break;
+			case "/setPlanResponse":
+				System.out.println("Se ha actualizado la base de datos de planes");
 				break;
 			default:
 				Logger.getRootLogger().info("Option not found");
 				System.out.println("\nError a la vuelta");
 				break;
-		
+
 		}
 		//System.out.println("3.- En Main.- El valor devuelto es: "+((String)mensajeVuelta.getSession().get("Nombre")));
 	}
@@ -63,7 +66,7 @@ public class Client {
 		this.host=host;
 		this.port=port;
 	}
-	
+
 
 	public void sent(Message messageOut, Message messageIn) {
 		try {

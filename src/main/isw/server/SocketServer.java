@@ -40,8 +40,8 @@ public class SocketServer extends Thread {
 		    //Object to return informations 
 		    ObjectOutputStream objectOutputStream = new ObjectOutputStream(out);
 		    Message mensajeOut=new Message();
-		    JVentanaApp ventana=new JVentanaApp();
-			Registro r=new Registro(ventana);
+		    //JVentanaApp ventana=new JVentanaApp();
+			//Registro r=new Registro(ventana);
 		    switch (mensajeIn.getContext()) {
 		    	case "/getCustomer":
 		    		CustomerControler customerControler=new CustomerControler();
@@ -51,21 +51,47 @@ public class SocketServer extends Thread {
 		    		HashMap<String,Object> session=new HashMap<String, Object>();
 		    		session.put("Customer",lista);
 		    		mensajeOut.setSession(session);
-		    		objectOutputStream.writeObject(mensajeOut);		    		
+		    		objectOutputStream.writeObject(mensajeOut);
 		    		break;
 				case "/setCustomer":
-					 customerControler=new CustomerControler();
-					 lista=new ArrayList<Customer>();
-					 System.out.println(r.getNombre());
-					 Customer customer=new Customer(r.getNombre(),r.getApellido(),r.getPassword());
-					 System.out.println(r.getNombre());
-					 customerControler.setCustomer(lista,customer.getNombre(),customer.getApellido(),customer.getPassword());
-					 mensajeOut.setContext("/setCustomerResponse");
-					 session=new HashMap<String, Object>();
-					 session.put("Customer",lista);
-					 mensajeOut.setSession(session);
-					 objectOutputStream.writeObject(mensajeOut);
-					 break;
+					customerControler=new CustomerControler();
+					lista=new ArrayList<Customer>();
+					System.out.println("CCCC  "+(String)mensajeIn.getSession().get("Nombre"));
+					Customer customer=new Customer((String)mensajeIn.getSession().get("Nombre"),(String)mensajeIn.getSession().get("Apellido"),(String)mensajeIn.getSession().get("Password"));
+					lista.add(customer);
+
+					System.out.println("Socket - Nombre: "+customer.getNombre());
+					System.out.println("Socket - Apellido: "+customer.getApellido());
+					System.out.println("Socket - Password: "+customer.getPassword());
+
+					customerControler.setCustomer(customer);
+					mensajeOut.setContext("/setCustomerResponse");
+					session=new HashMap<String, Object>();
+					session.put("Customer",lista);
+					mensajeOut.setSession(session);
+					objectOutputStream.writeObject(mensajeOut);
+					break;
+
+				case "/setPlan":
+					customerControler=new CustomerControler();
+					lista=new ArrayList<Customer>();
+					System.out.println("CCCC  "+(String)mensajeIn.getSession().get("Nombre"));
+					Customer customer=new Customer((String)mensajeIn.getSession().get("Nombre"),(String)mensajeIn.getSession().get("Apellido"),(String)mensajeIn.getSession().get("Password"));
+					lista.add(customer);
+
+					System.out.println("Socket - Nombre: "+customer.getNombre());
+					System.out.println("Socket - Apellido: "+customer.getApellido());
+					System.out.println("Socket - Password: "+customer.getPassword());
+
+					customerControler.setCustomer(customer);
+					mensajeOut.setContext("/setCustomerResponse");
+					session=new HashMap<String, Object>();
+					session.put("Customer",lista);
+					mensajeOut.setSession(session);
+					objectOutputStream.writeObject(mensajeOut);
+					break;
+
+
 				default:
 		    		System.out.println("\nParámetro no encontrado");
 		    		break;

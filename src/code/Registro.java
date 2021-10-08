@@ -15,6 +15,7 @@ import java.awt.event.WindowListener;
 
 import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.util.HashMap;
 
 public class Registro extends JPanel implements ActionListener, WindowListener {
     JButton JbtnRegistrarse = new JButton("REGISTRARSE");
@@ -76,11 +77,16 @@ public class Registro extends JPanel implements ActionListener, WindowListener {
            // usuario= new Customer(nombreTxt,apellido1Txt,passwordTxt);
 
             //Parte para actualizar la tabla con un nuevo usuario
+            //Creacion de un hasmap para almacenar los datos y se envian al cliente
+            HashMap<String,Object> session =new HashMap<String, Object>();
+            session.put("Nombre", (Object)nombreTxt);
+            session.put("Apellido",(Object)apellido1Txt);
+            session.put("Password",(Object)passwordTxt);
+            Client.enviarPeticion("/setCustomer",session);
 
-            Client.enviarPeticion("/setCustomer");
 
 
-            System.out.println("Nombre: "+nombreTxt + " " + apellido1Txt + " " + passwordTxt);
+            System.out.println("Registro - Nombre: "+nombreTxt + " " + apellido1Txt + " " + passwordTxt);
             ventana.setVisible(false);
             JVentanaApp ventanaLog = new JVentanaApp();
             InicioSesion inicioSesion = new InicioSesion(ventanaLog);
