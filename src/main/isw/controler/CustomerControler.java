@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import main.isw.dao.CustomerDAO;
 import main.isw.domain.Customer;
-
+import main.isw.domain.Plan;
 public class CustomerControler {
 
 
@@ -15,5 +15,7 @@ public class CustomerControler {
 	public void setCustomer(Customer customer) {
 		CustomerDAO.setClientes(customer);
 	}
-	//public void setPlan(ArrayList<Plan>)
+	public void setPlan(Plan plan) {
+		CustomerDAO.setPlan(plan);
+	}
 }

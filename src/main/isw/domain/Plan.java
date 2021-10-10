@@ -22,8 +22,8 @@ public class Plan implements Serializable{
         this.setPrivacidad(new String());
         this.setDescripcion(new String());
     }
-
-    public Plan(String nombre, String fecha,String hora, String capacidad, String privacidad, String descripcion) {
+//Plan((String)mensajeIn.getSession().get("nombre"),(String)mensajeIn.getSession().get("fecha"),(String)mensajeIn.getSession().get("lugar"),(String)mensajeIn.getSession().get("hora"),(String)mensajeIn.getSession().get("capacidad"),(String)mensajeIn.getSession().get("privacidad"),(String)mensajeIn.getSession().get("descripcion"))
+    public Plan(String nombre, String fecha,String lugar,String hora, String capacidad, String privacidad, String descripcion) {
         this.setNombre(nombre);
         this.setFecha(fecha);
         this.setLugar(lugar);

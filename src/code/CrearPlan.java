@@ -50,8 +50,8 @@ public class CrearPlan extends JPanel implements ActionListener,WindowListener {
         crear.addActionListener(this);
 
         nombrePlan = new JTextField();
-        fecha = new JTextField();
-        hora = new JTextField();
+        fecha = new JTextField("Año-Mes-Dia");
+        hora = new JTextField("Hora:Min:Seg");
         capacidad = new JTextField();
         descripcion = new JTextArea(100,50);
         scroll = new JScrollPane(descripcion);
@@ -163,7 +163,7 @@ public class CrearPlan extends JPanel implements ActionListener,WindowListener {
             session.put("privacidad",(Object)privacidadTxt);
             session.put("descripcion",(Object)descripcionTxt);
 
-            Client.enviarPeticion("/setCustomer",session);
+            Client.enviarPeticion("/setPlan",session);
         }
     }
 

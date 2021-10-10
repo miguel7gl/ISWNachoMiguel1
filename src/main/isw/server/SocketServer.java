@@ -14,6 +14,7 @@ import code.JVentanaApp;
 import code.Registro;
 import main.isw.controler.CustomerControler;
 import main.isw.domain.Customer;
+import main.isw.domain.Plan;
 import main.isw.message.Message;
 import code.Registro;
 public class SocketServer extends Thread {
@@ -74,19 +75,18 @@ public class SocketServer extends Thread {
 
 				case "/setPlan":
 					customerControler=new CustomerControler();
-					lista=new ArrayList<Customer>();
+					ArrayList listaPlan=new ArrayList<Plan>();
 					System.out.println("CCCC  "+(String)mensajeIn.getSession().get("Nombre"));
-					Customer customer=new Customer((String)mensajeIn.getSession().get("Nombre"),(String)mensajeIn.getSession().get("Apellido"),(String)mensajeIn.getSession().get("Password"));
-					lista.add(customer);
+					Plan plan=new Plan((String)mensajeIn.getSession().get("nombre"),(String)mensajeIn.getSession().get("fecha"),(String)mensajeIn.getSession().get("lugar"),(String)mensajeIn.getSession().get("hora"),(String)mensajeIn.getSession().get("capacidad"),(String)mensajeIn.getSession().get("privacidad"),(String)mensajeIn.getSession().get("descripcion"));
+					listaPlan.add(plan);
 
-					System.out.println("Socket - Nombre: "+customer.getNombre());
-					System.out.println("Socket - Apellido: "+customer.getApellido());
-					System.out.println("Socket - Password: "+customer.getPassword());
+					System.out.println("Socket - Nombre: "+plan.getNombre());
 
-					customerControler.setCustomer(customer);
-					mensajeOut.setContext("/setCustomerResponse");
+
+					customerControler.setPlan(plan);
+					mensajeOut.setContext("/setPlanResponse");
 					session=new HashMap<String, Object>();
-					session.put("Customer",lista);
+					session.put("Plan",listaPlan);
 					mensajeOut.setSession(session);
 					objectOutputStream.writeObject(mensajeOut);
 					break;
