@@ -2,7 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 <comment>This is easy!</comment>
-	<entry key="ddbb.connection">jdbc:postgresql://localhost/project_des</entry>
+	<entry key="ddbb.connection">jdbc:postgresql://localhost/prueba2_des</entry>
 	<entry key="ddbb.user">postgres</entry>
 	<entry key="ddbb.password">postgres</entry>
 	<entry key="host">localhost</entry>
