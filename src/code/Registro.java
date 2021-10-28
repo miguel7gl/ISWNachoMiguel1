@@ -29,9 +29,10 @@ public class Registro extends JPanel implements ActionListener, WindowListener {
     String nombreTxt;
     String apellido1Txt;
     String passwordTxt;
+
     Customer usuario;
     Image fondo;
-    Registro registro;
+
     public JVentanaApp ventana;
 
     public Registro(JVentanaApp ventana) {

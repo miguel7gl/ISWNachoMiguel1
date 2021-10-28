@@ -8,6 +8,10 @@ import java.awt.event.WindowListener;
 
 import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.util.HashMap;
+
+import main.isw.domain.Customer;
+import main.isw.client.Client;
 
 public class InicioSesion extends JPanel implements ActionListener, WindowListener
 {
@@ -17,8 +21,14 @@ public class InicioSesion extends JPanel implements ActionListener, WindowListen
     JLabel LabelNombre = new JLabel("Nombre:");
     JLabel LabelPassword = new JLabel("Contraseña:");
 
+    String nombreTxt;
+    String passwordTxt;
+
+
     Image fondo;
     JVentanaApp ventana;
+    public static Boolean salida;
+
 
     public InicioSesion(JVentanaApp ventana)
     {
@@ -53,11 +63,26 @@ public class InicioSesion extends JPanel implements ActionListener, WindowListen
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == JbtnInicio) {
             System.out.println("Botón Iniciar sesión pulsado");
-            ventana.setVisible(false);
-            JVentanaApp ventanaPlan = new JVentanaApp();
-            MenuPlanes inicioMenu = new MenuPlanes(ventanaPlan);
-            ventanaPlan.add(inicioMenu);
-            ventanaPlan.setVisible(true);
+            nombreTxt = nombre.getText();
+            passwordTxt = password.getText();
+            HashMap<String,Object> session =new HashMap<String, Object>();
+            session.put("Nombre", (Object)nombreTxt);
+            session.put("Password",(Object)passwordTxt);
+            Client.enviarPeticion("/getCustomer",session);
+            if (salida.equals(true))
+            {
+                System.out.println("Correcto");
+                ventana.setVisible(false);
+                JVentanaApp ventanaPlan = new JVentanaApp();
+                MenuPlanes inicioMenu = new MenuPlanes(ventanaPlan);
+                ventanaPlan.add(inicioMenu);
+                ventanaPlan.setVisible(true);
+            }else if (salida.equals(false)){
+                JOptionPane.showMessageDialog(null,"Usuario y/o contraseña incorrectos");
+            }else{
+                System.out.println("No queremos esto");
+            }
+
         }
     }
 
@@ -94,4 +119,5 @@ public class InicioSesion extends JPanel implements ActionListener, WindowListen
     public void windowDeactivated(WindowEvent e) {
 
     }
+
 }

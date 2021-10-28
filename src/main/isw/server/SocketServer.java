@@ -44,11 +44,11 @@ public class SocketServer extends Thread {
 		    //JVentanaApp ventana=new JVentanaApp();
 			//Registro r=new Registro(ventana);
 		    switch (mensajeIn.getContext()) {
-		    	case "/getCustomer":
+		    	case "/getCustomers":
 		    		CustomerControler customerControler=new CustomerControler();
 		    		ArrayList<Customer> lista=new ArrayList<Customer>();
-		    		customerControler.getCustomer(lista);
-		    		mensajeOut.setContext("/getCustomerResponse");
+		    		customerControler.getCustomers(lista);
+		    		mensajeOut.setContext("/getCustomersResponse");
 		    		HashMap<String,Object> session=new HashMap<String, Object>();
 		    		session.put("Customer",lista);
 		    		mensajeOut.setSession(session);
@@ -90,7 +90,16 @@ public class SocketServer extends Thread {
 					mensajeOut.setSession(session);
 					objectOutputStream.writeObject(mensajeOut);
 					break;
+				case "/getCustomer"://para el inicio de sesión
+					 customerControler=new CustomerControler();
+					 customer=new Customer((String)mensajeIn.getSession().get("Nombre"),null,(String)mensajeIn.getSession().get("Password"));
+					 boolean salida=customerControler.getCustomer(customer);
 
+					 mensajeOut.setContext("/getCustomerResponse");
+					 session=new HashMap<String, Object>();
+					 session.put("Salida",salida);
+					 mensajeOut.setSession(session);
+					 objectOutputStream.writeObject(mensajeOut);
 
 				default:
 		    		System.out.println("\nParámetro no encontrado");

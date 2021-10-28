@@ -12,7 +12,7 @@ public class JVentanaApp extends JFrame implements WindowListener
 
     public JVentanaApp()
     {
-        super("Planaria");
+        super("Plantastic");
 
        /* //INICIO SESIÓN
         InicioSesion = new InicioSesion(this);

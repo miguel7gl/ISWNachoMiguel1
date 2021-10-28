@@ -59,6 +59,28 @@ public class CustomerDAO {
 			System.out.println(ex.getMessage());
 		}
 	}
+	public static Boolean getCliente(Customer customer) {
+		boolean salida;
+		Connection con=ConnectionDAO.getInstance().getConnection();
+		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM usuarios WHERE nombre='"+customer.getNombre()+"' AND  password='"+ customer.getPassword()+"'");
+			 ResultSet rs = pst.executeQuery()) {
+
+			if (rs.next()) {
+				System.out.println("El usuario y contraseña coinciden con la base de datos");
+				//lista.add(new Customer(rs.getString(1),rs.getString(2),rs.getString(3)));
+				 salida=true;
+			}else{
+				System.out.println("El usuario y/o la contraseña son incorrectos");
+				salida=false;
+
+			}
+		} catch (SQLException ex) {
+
+			System.out.println(ex.getMessage());
+			salida=false;
+		}
+		return salida;
+	}
 
 	/*public static void main(String[] args) {
 

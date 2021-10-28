@@ -15,6 +15,8 @@ import org.apache.log4j.Logger;
 import main.isw.configuration.PropertiesISW;
 import main.isw.domain.Customer;
 import main.isw.message.Message;
+import code.InicioSesion;
+
 
 public class Client {
 	private String host;
@@ -41,7 +43,7 @@ public class Client {
 		
 		
 		switch (mensajeVuelta.getContext()) {
-			case "/getCustomerResponse":
+			case "/getCustomersResponse":
 				ArrayList<Customer> customerList=(ArrayList<Customer>)(mensajeVuelta.getSession().get("Customer"));
 				 for (Customer customer : customerList) {
 					 System.out.println("He leído el nombre: "+customer.getNombre()+" "+customer.getApellido()+" con contraseña: "+customer.getPassword());
@@ -53,6 +55,18 @@ public class Client {
 			case "/setPlanResponse":
 				System.out.println("Se ha actualizado la base de datos de planes");
 				break;
+			case "/getCustomerResponse":
+				Boolean salida= (boolean)(mensajeVuelta.getSession().get("Salida"));
+				if (salida==true)
+				{
+					InicioSesion.salida=salida;
+					System.out.println("Se ha realizado la busqueda del cliente con éxito");
+				}else{
+					InicioSesion.salida=salida;
+					System.out.println("El cliente inroducido no figura en la base de datos");
+				}
+				break;
+
 			default:
 				Logger.getRootLogger().info("Option not found");
 				System.out.println("\nError a la vuelta");
