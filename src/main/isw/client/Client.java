@@ -10,11 +10,14 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import code.DisplayPlans;
+import code.MenuPlanes;
 import org.apache.log4j.Logger;
 
 import main.isw.configuration.PropertiesISW;
 import main.isw.domain.Customer;
 import main.isw.message.Message;
+import main.isw.domain.Plan;
 import code.InicioSesion;
 
 
@@ -66,7 +69,13 @@ public class Client {
 					System.out.println("El cliente inroducido no figura en la base de datos");
 				}
 				break;
-
+			case "/getPlansResponse":
+				ArrayList<Plan> listaPlans=(ArrayList<Plan>)(mensajeVuelta.getSession().get("Plans"));
+				DisplayPlans.listaPlans=listaPlans;
+				for (Plan plan : listaPlans) {
+					System.out.println("Nombre_Plan: "+plan.getNombre()+" Lugar: "+plan.getLugar()+" Hora: con contraseña: "+plan.getHora()+" Capacidad: "+plan.getCapacidad()+" Privacidad: "+plan.getPrivacidad()+" Descripcion: "+plan.getDescripcion());
+				}
+				break;
 			default:
 				Logger.getRootLogger().info("Option not found");
 				System.out.println("\nError a la vuelta");

@@ -1,7 +1,12 @@
 package code;
+import main.isw.client.Client;
+import main.isw.domain.Plan;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.*;
 
 public class MenuPlanes extends JPanel implements ActionListener {
@@ -9,6 +14,8 @@ public class MenuPlanes extends JPanel implements ActionListener {
     public JButton crear;
     public JButton buscar;
     public Image fondo;
+    public static ArrayList<Plan> listaPlans;
+
     public static void main(String[] args) {
 
         JVentanaApp ventana1 = new JVentanaApp();
@@ -56,8 +63,17 @@ public class MenuPlanes extends JPanel implements ActionListener {
             ventanaCrear.setVisible(true);
 
         }
-        else if (e.getSource() == this.buscar) {
-            System.out.println("Funcionalidad sin implementar aún");
+        else if (e.getSource() == this.buscar) { ;
+            HashMap<String,Object> session =new HashMap<String, Object>();
+            Client.enviarPeticion("/getPlans",session);
+            ventana.setVisible(false);
+            JVentanaApp ventanaDisplay=new JVentanaApp();
+            DisplayPlans display = new DisplayPlans(ventanaDisplay);
+            ventanaDisplay.add(display);
+            ventanaDisplay.setVisible(true);
+
+
+
         }
     }
 

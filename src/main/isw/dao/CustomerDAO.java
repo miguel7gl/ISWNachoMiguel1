@@ -81,6 +81,20 @@ public class CustomerDAO {
 		}
 		return salida;
 	}
+	public static void getPlans(ArrayList<Plan> lista) {
+		Connection con=ConnectionDAO.getInstance().getConnection();
+		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM planes");
+			 ResultSet rs = pst.executeQuery()) {
+
+			while (rs.next()) {
+				lista.add(new Plan(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7)));
+			}
+
+		} catch (SQLException ex) {
+
+			System.out.println(ex.getMessage());
+		}
+	}
 
 	/*public static void main(String[] args) {
 

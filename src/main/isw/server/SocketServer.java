@@ -61,9 +61,9 @@ public class SocketServer extends Thread {
 					Customer customer=new Customer((String)mensajeIn.getSession().get("Nombre"),(String)mensajeIn.getSession().get("Apellido"),(String)mensajeIn.getSession().get("Password"));
 					lista.add(customer);
 
-					System.out.println("Socket - Nombre: "+customer.getNombre());
-					System.out.println("Socket - Apellido: "+customer.getApellido());
-					System.out.println("Socket - Password: "+customer.getPassword());
+					//System.out.println("Socket - Nombre: "+customer.getNombre());
+					//System.out.println("Socket - Apellido: "+customer.getApellido());
+					//System.out.println("Socket - Password: "+customer.getPassword());
 
 					customerControler.setCustomer(customer);
 					mensajeOut.setContext("/setCustomerResponse");
@@ -100,7 +100,16 @@ public class SocketServer extends Thread {
 					 session.put("Salida",salida);
 					 mensajeOut.setSession(session);
 					 objectOutputStream.writeObject(mensajeOut);
-
+				case "/getPlans":
+					customerControler=new CustomerControler();
+					ArrayList listaPlans=new ArrayList<Plan>();
+					customerControler.getPlans(listaPlans);
+					mensajeOut.setContext("/getPlansResponse");
+					session=new HashMap<String, Object>();
+					session.put("Plans",listaPlans);
+					mensajeOut.setSession(session);
+					objectOutputStream.writeObject(mensajeOut);
+					break;
 				default:
 		    		System.out.println("\nParámetro no encontrado");
 		    		break;

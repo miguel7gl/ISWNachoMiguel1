@@ -17,7 +17,7 @@ public class InicioSesion extends JPanel implements ActionListener, WindowListen
 {
     JButton JbtnInicio = new JButton("INICIAR SESION");
     JTextField nombre = new JTextField("",4);
-    JTextField password = new JTextField("",4);
+    JPasswordField password = new JPasswordField("",4);
     JLabel LabelNombre = new JLabel("Nombre:");
     JLabel LabelPassword = new JLabel("Contraseña:");
 
@@ -43,6 +43,7 @@ public class InicioSesion extends JPanel implements ActionListener, WindowListen
         JbtnInicio.setBounds(290,210,225,30);
         nombre.setBounds(385,130,130,30);
         password.setBounds(385,170,130,30);
+        password.setEchoChar('*');
         LabelNombre.setBounds(307,130,130,30);
         LabelPassword.setBounds(296,170,130,30);
         ventana.add(JbtnInicio);

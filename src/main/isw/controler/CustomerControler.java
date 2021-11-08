@@ -7,7 +7,6 @@ import main.isw.domain.Customer;
 import main.isw.domain.Plan;
 public class CustomerControler {
 
-
 	public void getCustomers(ArrayList<Customer> lista) {
 		CustomerDAO.getClientes(lista);
 	}
@@ -19,9 +18,14 @@ public class CustomerControler {
 		CustomerDAO.setPlan(plan);
 	}
 
-	public boolean getCustomer(Customer  customer) {
+	public boolean getCustomer(Customer  customer) {// utilizado para el inicio de sesión
 		boolean salida;
 		salida=CustomerDAO.getCliente(customer);
 		return salida;
-	}// utilizado para el inicio de sesión
+	}
+
+	public void getPlans(ArrayList<Plan> lista){
+		CustomerDAO.getPlans(lista);
+	}
+
 }
