@@ -58,17 +58,18 @@ public class SocketServer extends Thread {
 					customerControler=new CustomerControler();
 					lista=new ArrayList<Customer>();
 					System.out.println("CCCC  "+(String)mensajeIn.getSession().get("Nombre"));
-					Customer customer=new Customer((String)mensajeIn.getSession().get("Nombre"),(String)mensajeIn.getSession().get("Apellido"),(String)mensajeIn.getSession().get("Password"));
+					Customer customer=new Customer((String)mensajeIn.getSession().get("Nombre"),(String)mensajeIn.getSession().get("Correo"),(String)mensajeIn.getSession().get("Password"));
 					lista.add(customer);
 
 					//System.out.println("Socket - Nombre: "+customer.getNombre());
-					//System.out.println("Socket - Apellido: "+customer.getApellido());
+					//System.out.println("Socket - Correo: "+customer.getApellido());
 					//System.out.println("Socket - Password: "+customer.getPassword());
 
-					customerControler.setCustomer(customer);
+					boolean salida=customerControler.setCustomer(customer);
 					mensajeOut.setContext("/setCustomerResponse");
 					session=new HashMap<String, Object>();
 					session.put("Customer",lista);
+					session.put("Salida",salida);
 					mensajeOut.setSession(session);
 					objectOutputStream.writeObject(mensajeOut);
 					break;
@@ -77,10 +78,10 @@ public class SocketServer extends Thread {
 					customerControler=new CustomerControler();
 					ArrayList listaPlan=new ArrayList<Plan>();
 					System.out.println("CCCC  "+(String)mensajeIn.getSession().get("Nombre"));
-					Plan plan=new Plan((String)mensajeIn.getSession().get("nombre"),(String)mensajeIn.getSession().get("fecha"),(String)mensajeIn.getSession().get("lugar"),(String)mensajeIn.getSession().get("hora"),(String)mensajeIn.getSession().get("capacidad"),(String)mensajeIn.getSession().get("privacidad"),(String)mensajeIn.getSession().get("descripcion"));
+					Plan plan=new Plan((String)mensajeIn.getSession().get("nombre"),(String)mensajeIn.getSession().get("fecha"),(String)mensajeIn.getSession().get("lugar"),(String)mensajeIn.getSession().get("hora"),(String)mensajeIn.getSession().get("capacidad"),(String)mensajeIn.getSession().get("privacidad"),(String)mensajeIn.getSession().get("descripcion"),(String)mensajeIn.getSession().get("creador"),(Integer)mensajeIn.getSession().get("idPlan"));
 					listaPlan.add(plan);
 
-					System.out.println("Socket - Nombre: "+plan.getNombre());
+					System.out.println("Socket - Nombre: "+plan.getCreador());
 
 
 					customerControler.setPlan(plan);
@@ -90,10 +91,11 @@ public class SocketServer extends Thread {
 					mensajeOut.setSession(session);
 					objectOutputStream.writeObject(mensajeOut);
 					break;
+
 				case "/getCustomer"://para el inicio de sesión
 					 customerControler=new CustomerControler();
 					 customer=new Customer((String)mensajeIn.getSession().get("Nombre"),null,(String)mensajeIn.getSession().get("Password"));
-					 boolean salida=customerControler.getCustomer(customer);
+					 salida=customerControler.getCustomer(customer);
 
 					 mensajeOut.setContext("/getCustomerResponse");
 					 session=new HashMap<String, Object>();
@@ -110,6 +112,42 @@ public class SocketServer extends Thread {
 					mensajeOut.setSession(session);
 					objectOutputStream.writeObject(mensajeOut);
 					break;
+				case "/getMaxIdPlan": //Necesitado para llevar a cabo la enumeración de los planes.Para que su id no se repita en la creación
+					customerControler=new CustomerControler();
+					Integer idPlan=customerControler.getMaxIdPlan();
+					mensajeOut.setContext("/getMaxIdPlanResponse");
+					session=new HashMap<String, Object>();
+					session.put("idPlan",idPlan);
+					mensajeOut.setSession(session);
+					objectOutputStream.writeObject(mensajeOut);
+					break;
+
+				case "/updateParticipantes":
+					customerControler=new CustomerControler();
+					String usuario=(String)mensajeIn.getSession().get("usuario");
+					Integer IdPlan=(Integer)mensajeIn.getSession().get("idPlan");;
+					customerControler.updateParticipantes(IdPlan,usuario);
+					mensajeOut.setContext("/updateParticipantesResponse");
+					session=new HashMap<String, Object>();
+					session.put("idPlan",IdPlan);
+					session.put("usuario",usuario);
+					mensajeOut.setSession(session);
+					objectOutputStream.writeObject(mensajeOut);
+					break;
+
+				case "/borrarParticipantes":
+					customerControler=new CustomerControler();
+					usuario=(String)mensajeIn.getSession().get("usuario");
+					IdPlan=(Integer)mensajeIn.getSession().get("idPlan");;
+					customerControler.borrarParticipantes(IdPlan,usuario);
+					mensajeOut.setContext("/borrarParticipantesResponse");
+					session=new HashMap<String, Object>();
+					session.put("idPlan",IdPlan);
+					session.put("usuario",usuario);
+					mensajeOut.setSession(session);
+					objectOutputStream.writeObject(mensajeOut);
+					break;
+
 				default:
 		    		System.out.println("\nParámetro no encontrado");
 		    		break;

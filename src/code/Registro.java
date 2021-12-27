@@ -20,41 +20,45 @@ import java.util.HashMap;
 public class Registro extends JPanel implements ActionListener, WindowListener {
     JButton JbtnRegistrarse = new JButton("REGISTRARSE");
     JTextField nombre = new JTextField("", 4);
-    JTextField apellido1 = new JTextField("", 4);
+    JTextField correo = new JTextField("", 4);
     JTextField password = new JTextField("", 4);
     JLabel LabelNombre = new JLabel("Nombre:");
-    JLabel LabelApellido1 = new JLabel("Primer apellido:");
+    JLabel LabelCorreo = new JLabel("Correo:");
     JLabel LabelPassword = new JLabel("Contraseña:");
 
     String nombreTxt;
-    String apellido1Txt;
+    String correoTxt;
     String passwordTxt;
 
     Customer usuario;
     Image fondo;
 
     public JVentanaApp ventana;
+    public static Boolean salida;
 
     public Registro(JVentanaApp ventana) {
         this.ventana=ventana;
-        fondo = Toolkit.getDefaultToolkit().getImage("./fotofondo.jpg");
+        fondo = Toolkit.getDefaultToolkit().getImage("./iniciosesion.jpg");
         fondo = fondo.getScaledInstance(800, 500, java.awt.Image.SCALE_SMOOTH);
 
         JbtnRegistrarse.addActionListener(this);
 
-        JbtnRegistrarse.setBounds(290, 230, 225, 30);
-        nombre.setBounds(385, 110, 130, 30);
-        apellido1.setBounds(385, 150, 130, 30);
-        password.setBounds(385, 190, 130, 30);
-        LabelNombre.setBounds(307, 110, 130, 30);
-        LabelApellido1.setBounds(290, 150, 130, 30);
-        LabelPassword.setBounds(296, 190, 130, 30);
+        JbtnRegistrarse.setBounds(290, 350, 225, 30);
+        JbtnRegistrarse.setBackground(new Color(250, 252, 250));
+
+        nombre.setBounds(385, 230, 130, 30);
+        correo.setBounds(385, 270, 130, 30);
+        password.setBounds(385, 310, 130, 30);
+        LabelNombre.setBounds(307, 230, 130, 30);
+        LabelCorreo.setBounds(307, 270, 130, 30);
+        LabelPassword.setBounds(296, 310, 130, 30);
+
         ventana.add(JbtnRegistrarse);
         ventana.add(nombre);
-        ventana.add(apellido1);
+        ventana.add(correo);
         ventana.add(password);
         ventana.add(LabelNombre);
-        ventana.add(LabelApellido1);
+        ventana.add(LabelCorreo);
         ventana.add(LabelPassword);
     }
     public Registro(){
@@ -72,27 +76,31 @@ public class Registro extends JPanel implements ActionListener, WindowListener {
         if (e.getSource() == JbtnRegistrarse) {
             System.out.println("Botón Registrarse pulsado");
             nombreTxt = nombre.getText();
-            apellido1Txt = apellido1.getText();
+            correoTxt = correo.getText();
             passwordTxt = password.getText();
 
-           // usuario= new Customer(nombreTxt,apellido1Txt,passwordTxt);
+           // usuario= new Customer(nombreTxt,correoTxt,passwordTxt);
 
             //Parte para actualizar la tabla con un nuevo usuario
             //Creacion de un hasmap para almacenar los datos y se envian al cliente
             HashMap<String,Object> session =new HashMap<String, Object>();
             session.put("Nombre", (Object)nombreTxt);
-            session.put("Apellido",(Object)apellido1Txt);
+            session.put("Correo",(Object)correoTxt);
             session.put("Password",(Object)passwordTxt);
             Client.enviarPeticion("/setCustomer",session);
+            if (salida.equals(true))
+            {
+                System.out.println("Correcto");
+                ventana.setVisible(false);
+                JVentanaApp ventanaLog = new JVentanaApp();
+                InicioSesion inicioSesion = new InicioSesion(ventanaLog);
+                ventanaLog.add(inicioSesion);
+                ventanaLog.setVisible(true);
 
+            }else if (salida.equals(false)){
+                JOptionPane.showMessageDialog(null,"Usuario y/o correo ya se encuentran registrados");
+            }
 
-
-            System.out.println("Registro - Nombre: "+nombreTxt + " " + apellido1Txt + " " + passwordTxt);
-            ventana.setVisible(false);
-            JVentanaApp ventanaLog = new JVentanaApp();
-            InicioSesion inicioSesion = new InicioSesion(ventanaLog);
-            ventanaLog.add(inicioSesion);
-            ventanaLog.setVisible(true);
         }
     }
     public Customer getUsuario(){
@@ -101,8 +109,8 @@ public class Registro extends JPanel implements ActionListener, WindowListener {
     public String getNombre(){
         return this.nombreTxt;
     }
-    public String getApellido(){
-        return this.apellido1Txt;
+    public String getCorreoTxt(){
+        return this.correoTxt;
     }
     public String getPassword(){
         return this.passwordTxt;

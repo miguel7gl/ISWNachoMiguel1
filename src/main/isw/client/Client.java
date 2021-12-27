@@ -10,15 +10,13 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import code.DisplayPlans;
-import code.MenuPlanes;
+import code.*;
 import org.apache.log4j.Logger;
 
 import main.isw.configuration.PropertiesISW;
 import main.isw.domain.Customer;
 import main.isw.message.Message;
 import main.isw.domain.Plan;
-import code.InicioSesion;
 
 
 public class Client {
@@ -49,17 +47,37 @@ public class Client {
 			case "/getCustomersResponse":
 				ArrayList<Customer> customerList=(ArrayList<Customer>)(mensajeVuelta.getSession().get("Customer"));
 				 for (Customer customer : customerList) {
-					 System.out.println("He leído el nombre: "+customer.getNombre()+" "+customer.getApellido()+" con contraseña: "+customer.getPassword());
+					 System.out.println("He leído el nombre: "+customer.getNombre()+" "+customer.getCorreo()+" con contraseña: "+customer.getPassword());
 					} 
 				break;
 			case "/setCustomerResponse":
-				 System.out.println("Se ha actualizado la base de datos de usuarios");
+
+					Boolean salida= (boolean)(mensajeVuelta.getSession().get("Salida"));
+					if (salida==true)
+					{
+						Registro.salida=salida;
+						System.out.println("Se ha actualizado la base de datos de usuarios");;
+					}else{
+						Registro.salida=salida;
+						System.out.println("El cliente inroducido ya figura en la base de datos");
+					}
 				break;
 			case "/setPlanResponse":
 				System.out.println("Se ha actualizado la base de datos de planes");
 				break;
+			case "/getMaxIdPlanResponse":
+				Integer idPlan=(Integer)(mensajeVuelta.getSession().get("idPlan"));
+				if (idPlan==null)
+				{
+					CrearPlan.idPlan=0;
+				}else{
+					CrearPlan.idPlan=idPlan+1;
+				}
+				System.out.println("IDPLAN: "+idPlan);
+				break;
+
 			case "/getCustomerResponse":
-				Boolean salida= (boolean)(mensajeVuelta.getSession().get("Salida"));
+				 salida= (boolean)(mensajeVuelta.getSession().get("Salida"));
 				if (salida==true)
 				{
 					InicioSesion.salida=salida;
@@ -73,8 +91,14 @@ public class Client {
 				ArrayList<Plan> listaPlans=(ArrayList<Plan>)(mensajeVuelta.getSession().get("Plans"));
 				DisplayPlans.listaPlans=listaPlans;
 				for (Plan plan : listaPlans) {
-					System.out.println("Nombre_Plan: "+plan.getNombre()+" Lugar: "+plan.getLugar()+" Hora: con contraseña: "+plan.getHora()+" Capacidad: "+plan.getCapacidad()+" Privacidad: "+plan.getPrivacidad()+" Descripcion: "+plan.getDescripcion());
+					System.out.println("Nombre_Plan: "+plan.getNombre()+" Lugar: "+plan.getLugar()+" Hora: con contraseña: "+plan.getHora()+" Capacidad: "+plan.getCapacidad()+" Privacidad: "+plan.getPrivacidad()+" Descripcion: "+plan.getDescripcion()+"Creador: "+plan.getCreador());
 				}
+				break;
+			case "/updateParticipantesResponse"	:
+				System.out.println("Se ha actualizado la base de datos participantes");
+				break;
+			case "/borrarParticipantesResponse"	:
+				System.out.println("Se ha desapuntado correctamente el usuario del plan ");
 				break;
 			default:
 				Logger.getRootLogger().info("Option not found");

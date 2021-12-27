@@ -23,12 +23,15 @@ public class Menu extends JPanel  implements ActionListener{
 
 
 
-        fondo = Toolkit.getDefaultToolkit().getImage("./fotofondo.jpg");
+        fondo = Toolkit.getDefaultToolkit().getImage("./plantastic.jpg");
         fondo = fondo.getScaledInstance(800, 500, java.awt.Image.SCALE_SMOOTH);
         registro=new JButton("REGISTRARSE");
         login=new JButton("LOG IN ");
-        registro.setBounds(290, 210, 150, 30);
-        login.setBounds(290, 170, 150, 30);
+        registro.setBounds(315, 300, 150, 30);
+        login.setBounds(315, 250, 150, 30);
+
+        registro.setBackground(new Color(228, 255, 222));
+        login.setBackground(new Color(228, 255, 222));
 
         registro.addActionListener(this);
         login.addActionListener(this);

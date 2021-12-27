@@ -21,8 +21,8 @@ public class InicioSesion extends JPanel implements ActionListener, WindowListen
     JLabel LabelNombre = new JLabel("Nombre:");
     JLabel LabelPassword = new JLabel("Contraseña:");
 
-    String nombreTxt;
-    String passwordTxt;
+    public static String nombreTxt;
+    static String passwordTxt;
 
 
     Image fondo;
@@ -30,22 +30,25 @@ public class InicioSesion extends JPanel implements ActionListener, WindowListen
     public static Boolean salida;
 
 
-    public InicioSesion(JVentanaApp ventana)
+    public InicioSesion(JVentanaApp ventana) //JPanel de inicio sesion
     {
         super();
         this.ventana=ventana;
 
-        fondo = Toolkit.getDefaultToolkit().getImage("./fotofondo.jpg");
+        fondo = Toolkit.getDefaultToolkit().getImage("./iniciosesion.jpg"); //Establecemos fondo
         fondo = fondo.getScaledInstance(800,500,java.awt.Image.SCALE_SMOOTH);
 
         JbtnInicio.addActionListener(this);
 
-        JbtnInicio.setBounds(290,210,225,30);
-        nombre.setBounds(385,130,130,30);
-        password.setBounds(385,170,130,30);
+        JbtnInicio.setBounds(290,340,225,30);
+        JbtnInicio.setBackground(new Color(250, 252, 250));
+
+        nombre.setBounds(385,240,130,30);
+        password.setBounds(385,290,130,30);
         password.setEchoChar('*');
-        LabelNombre.setBounds(307,130,130,30);
-        LabelPassword.setBounds(296,170,130,30);
+        LabelNombre.setBounds(307,240,130,30);
+        LabelPassword.setBounds(296,290,130,30);
+
         ventana.add(JbtnInicio);
         ventana.add(nombre);
         ventana.add(password);
@@ -61,7 +64,7 @@ public class InicioSesion extends JPanel implements ActionListener, WindowListen
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) { //Implementamos logica de los botones del panel
         if (e.getSource() == JbtnInicio) {
             System.out.println("Botón Iniciar sesión pulsado");
             nombreTxt = nombre.getText();
@@ -74,14 +77,13 @@ public class InicioSesion extends JPanel implements ActionListener, WindowListen
             {
                 System.out.println("Correcto");
                 ventana.setVisible(false);
+                nombreTxt=nombre.getText();
                 JVentanaApp ventanaPlan = new JVentanaApp();
                 MenuPlanes inicioMenu = new MenuPlanes(ventanaPlan);
                 ventanaPlan.add(inicioMenu);
                 ventanaPlan.setVisible(true);
-            }else if (salida.equals(false)){
-                JOptionPane.showMessageDialog(null,"Usuario y/o contraseña incorrectos");
-            }else{
-                System.out.println("No queremos esto");
+            }else if (salida.equals(false)) {
+                JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrectos");
             }
 
         }

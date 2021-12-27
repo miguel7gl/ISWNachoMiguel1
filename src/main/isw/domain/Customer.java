@@ -8,18 +8,18 @@ public class Customer implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private String nombre;
-	private String apellido;
+	private String correo;
 	private String password;
 	
 	public Customer() {
 		this.setNombre(new String());
-		this.setApellido(new String());
+		this.setCorreo(new String());
 		this.setPassword(new String());
 	}
 	
-	public Customer(String nombre, String apellido,String password) {
+	public Customer(String nombre, String correo,String password) {
 		this.setNombre(nombre);
-		this.setApellido(apellido);
+		this.setCorreo(correo);
 		this.setPassword(password);
 	}
 
@@ -29,14 +29,14 @@ public class Customer implements Serializable{
 	public void setNombre(String nombre) {
 		this.nombre=nombre;
 	}
-	public void setApellido(String apellido) {
-		this.apellido=apellido;
+	public void setCorreo(String correo) {
+		this.correo=correo;
 	}
 	public String getNombre(){
 		return this.nombre;
 	}
-	public String getApellido(){
-		return this.apellido;
+	public String getCorreo(){
+		return this.correo;
 	}
 	public String getPassword(){
 		return this.password;

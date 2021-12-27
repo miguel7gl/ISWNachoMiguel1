@@ -30,11 +30,14 @@ public class MenuPlanes extends JPanel implements ActionListener {
         crear=new JButton("Crear Plan");
         buscar=new JButton("Buscar Plan");
 
-        fondo = Toolkit.getDefaultToolkit().getImage("./fotofondo.jpg");
+        fondo = Toolkit.getDefaultToolkit().getImage("./plantastic.jpg");
         fondo = fondo.getScaledInstance(800, 500, java.awt.Image.SCALE_SMOOTH);
 
-        crear.setBounds(295,150,225,30);
-        buscar.setBounds(295,190,225,30);
+        crear.setBounds(315, 300, 150, 30);
+        buscar.setBounds(315, 250, 150, 30);
+
+        crear.setBackground(new Color(228, 255, 222));
+        buscar.setBackground(new Color(228, 255, 222));
 
         crear.addActionListener(this);
         buscar.addActionListener(this);
@@ -56,6 +59,8 @@ public class MenuPlanes extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.crear) {
+            HashMap<String,Object> session =new HashMap<String, Object>();
+            Client.enviarPeticion("/getMaxIdPlan",session);
             ventana.setVisible(false);
             JVentanaApp ventanaCrear=new JVentanaApp();
             CrearPlan crearPlan = new CrearPlan(ventanaCrear);

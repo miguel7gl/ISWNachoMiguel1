@@ -10,6 +10,7 @@ import java.awt.event.WindowListener;
 import java.util.HashMap;
 
 public class CrearPlan extends JPanel implements ActionListener,WindowListener {
+
     private JVentanaApp ventana;
     public JButton crear;
     public JTextField nombrePlan, fecha, hora, lugar, capacidad;
@@ -28,6 +29,8 @@ public class CrearPlan extends JPanel implements ActionListener,WindowListener {
     String descripcionTxt;
     String privacidadTxt;
 
+    public static Integer idPlan; //Esta variable va a controlar el id de cada plan
+
 
 
     public static void main(String[] args) {
@@ -43,7 +46,7 @@ public class CrearPlan extends JPanel implements ActionListener,WindowListener {
         super();
         this.ventana = ventana;
 
-        fondo = Toolkit.getDefaultToolkit().getImage("./fotofondo.jpg");
+        fondo = Toolkit.getDefaultToolkit().getImage("./crearplanes.jpg");
         fondo = fondo.getScaledInstance(800, 500, java.awt.Image.SCALE_SMOOTH);
 
         crear = new JButton("CREAR");
@@ -57,7 +60,8 @@ public class CrearPlan extends JPanel implements ActionListener,WindowListener {
         scroll = new JScrollPane(descripcion);
         lugar = new JTextField();
         privado = new JRadioButton("Privado");
-        publico = new JRadioButton("Publico");
+        publico=new JRadioButton("Publico");
+
         //Botones de privacidad para que solo se rellene una casilla
         bg=new ButtonGroup();
         bg.add(privado);
@@ -69,21 +73,23 @@ public class CrearPlan extends JPanel implements ActionListener,WindowListener {
         labelLugar = new JLabel("Lugar:");
         labelCapacidad = new JLabel("NºIntegrantes:");
         labelDescripcion = new JLabel("Descripcion:");
-        labelNombre.setForeground(Color.YELLOW);
-        labelFecha.setForeground(Color.YELLOW);
-        labelHora.setForeground(Color.YELLOW);
-        labelLugar.setForeground(Color.YELLOW);
-        labelCapacidad.setForeground(Color.YELLOW);
-        labelDescripcion.setForeground(Color.YELLOW);
+        //labelNombre.setForeground(Color.YELLOW);
+        //labelFecha.setForeground(Color.YELLOW);
+        //labelHora.setForeground(Color.YELLOW);
+        //labelLugar.setForeground(Color.YELLOW);
+        //labelCapacidad.setForeground(Color.YELLOW);
+        //labelDescripcion.setForeground(Color.YELLOW);
 
 
-        crear.setBounds(550, 130, 100, 50);
-        labelNombre.setBounds(290, 50, 130, 30);
-        labelFecha.setBounds(290, 90, 130, 30);
-        labelLugar.setBounds(290, 130, 130, 30);
-        labelHora.setBounds(290, 170, 130, 30);
-        labelCapacidad.setBounds(290, 210, 130, 30);
-        labelDescripcion.setBounds(360, 290, 130, 30);
+        crear.setBounds(505, 200, 85, 50);
+        crear.setBackground(new Color(250, 252, 250));
+
+        labelNombre.setBounds(238, 135, 130, 30);
+        labelFecha.setBounds(243, 170, 130, 30);
+        labelLugar.setBounds(243, 205, 130, 30);
+        labelHora.setBounds(245, 240, 130, 30);
+        labelCapacidad.setBounds(220, 275, 130, 30);
+        labelDescripcion.setBounds(360, 335, 130, 30);
         ventana.add(crear);
         ventana.add(labelNombre);
         ventana.add(labelFecha);
@@ -91,13 +97,12 @@ public class CrearPlan extends JPanel implements ActionListener,WindowListener {
         ventana.add(labelHora);
         ventana.add(labelCapacidad);
         ventana.add(labelDescripcion);
+
         //JRadioButtons
-        publico.setBounds(300,250,80,30);
-        privado.setBounds(420,250,80,30);
+        publico.setBounds(280,310,80,30);
+        privado.setBounds(440,310,80,30);
         publico.setOpaque(false);
         privado.setOpaque(false);
-        privado.setForeground(Color.YELLOW);
-        publico.setForeground(Color.YELLOW);
 
         //Para detectar lo que se ha seleccionado
         publico.setActionCommand("publico");
@@ -105,13 +110,14 @@ public class CrearPlan extends JPanel implements ActionListener,WindowListener {
 
         ventana.add(publico);
         ventana.add(privado);
+
         //JTextfields
-        nombrePlan.setBounds(385, 50, 130, 30);
-        fecha.setBounds(385, 90, 130, 30);
-        lugar.setBounds(385, 130, 130, 30);
-        hora.setBounds(385, 170, 130, 30);
-        capacidad.setBounds(385, 210, 130, 30);
-        scroll.setBounds(215, 340, 375, 100);
+        nombrePlan.setBounds(325, 135, 150, 30);
+        fecha.setBounds(325, 170, 150, 30);
+        lugar.setBounds(325, 205, 150, 30);
+        hora.setBounds(325, 240, 150, 30);
+        capacidad.setBounds(325, 275, 150, 30);
+        scroll.setBounds(215, 365, 375, 75);
 
 
         ventana.add(nombrePlan);
@@ -137,34 +143,49 @@ public class CrearPlan extends JPanel implements ActionListener,WindowListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == this.crear) {
-            System.out.println("Boton crear pulsado");
-            JOptionPane.showMessageDialog(null,"Plan creado");
+        try {
+            if (e.getSource() == this.crear) {
+                System.out.println("Boton crear pulsado");
+                nombrePlanTxt = nombrePlan.getText();
+                fechaTxt = fecha.getText();
+                lugarTxt = lugar.getText();
+                horaTxt = hora.getText();
+                capacidadTxt = capacidad.getText();
+                privacidadTxt = bg.getSelection().getActionCommand();
+                descripcionTxt = descripcion.getText();
+                if (nombrePlanTxt.equals("")||fechaTxt.equals("")||horaTxt.equals("")||lugarTxt.equals("")||capacidadTxt.equals("")){ //cazamos posibles fallos en la creacion del plan,la descripcion no es obligatoria
+                    throw new NullPointerException();
+                }else {
+                    JOptionPane.showMessageDialog(null, "Plan creado");
+                    System.out.println(nombrePlanTxt + "\n" + fechaTxt + "\n" + lugarTxt + "\n" + horaTxt + "\n" + capacidadTxt + "\n" + privacidadTxt + "\n" + descripcionTxt+ "\n"+ idPlan);
 
-            //f(privado)
+                    //Parte para actualizar la tabla con un nuevo usuario
+                    //Creacion de un hasmap para almacenar los datos y se envian al cliente
+                    HashMap<String, Object> session = new HashMap<String, Object>();
+                    session.put("nombre", (Object) nombrePlanTxt);
+                    session.put("fecha", (Object) fechaTxt);
+                    session.put("lugar", (Object) lugarTxt);
+                    session.put("hora", (Object) horaTxt);
+                    session.put("capacidad", (Object) capacidadTxt);
+                    session.put("privacidad", (Object) privacidadTxt);
+                    session.put("descripcion", (Object) descripcionTxt);
+                    session.put("creador",(Object) InicioSesion.nombreTxt);
+                    session.put("idPlan",(Object) idPlan);
 
-            nombrePlanTxt = nombrePlan.getText();
-            fechaTxt = fecha.getText();
-            lugarTxt = lugar.getText();
-            horaTxt = hora.getText();
-            capacidadTxt = capacidad.getText();
-            privacidadTxt = bg.getSelection().getActionCommand();
-            descripcionTxt = descripcion.getText();
-            System.out.println(nombrePlanTxt+"\n"+fechaTxt+"\n"+lugarTxt+"\n"+horaTxt+"\n"+capacidadTxt+"\n"+privacidadTxt+"\n"+descripcionTxt);
+                    Client.enviarPeticion("/setPlan", session);
+                    ventana.setVisible(false);
+                    JVentanaApp ventanaPlan = new JVentanaApp();
+                    MenuPlanes inicioMenu = new MenuPlanes(ventanaPlan);
+                    ventanaPlan.add(inicioMenu);
+                    ventanaPlan.setVisible(true);
+                }
+            }
+        }catch(NullPointerException exception)
+            {
+                System.out.print("NullPointerException caught");
+                JOptionPane.showMessageDialog(null, "Faltan parámetros por rellenar en el plan");
+            }
 
-            //Parte para actualizar la tabla con un nuevo usuario
-            //Creacion de un hasmap para almacenar los datos y se envian al cliente
-            HashMap<String,Object> session =new HashMap<String, Object>();
-            session.put("nombre", (Object)nombrePlanTxt);
-            session.put("fecha",(Object)fechaTxt);
-            session.put("lugar",(Object)lugarTxt);
-            session.put("hora",(Object)horaTxt);
-            session.put("capacidad",(Object)capacidadTxt);
-            session.put("privacidad",(Object)privacidadTxt);
-            session.put("descripcion",(Object)descripcionTxt);
-
-            Client.enviarPeticion("/setPlan",session);
-        }
     }
 
     @Override

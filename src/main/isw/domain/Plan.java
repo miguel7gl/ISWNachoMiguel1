@@ -12,8 +12,13 @@ public class Plan implements Serializable{
     private String capacidad;
     private String privacidad;
     private String descripcion;
+    private String creador;
+    private Integer idPlan;
+
+
 
     public Plan() {
+        this.setCreador(new String());
         this.setNombre(new String());
         this.setFecha(new String());
         this.setLugar(new String());
@@ -23,7 +28,7 @@ public class Plan implements Serializable{
         this.setDescripcion(new String());
     }
 //Plan((String)mensajeIn.getSession().get("nombre"),(String)mensajeIn.getSession().get("fecha"),(String)mensajeIn.getSession().get("lugar"),(String)mensajeIn.getSession().get("hora"),(String)mensajeIn.getSession().get("capacidad"),(String)mensajeIn.getSession().get("privacidad"),(String)mensajeIn.getSession().get("descripcion"))
-    public Plan(String nombre, String fecha,String lugar,String hora, String capacidad, String privacidad, String descripcion) {
+    public Plan(String nombre, String fecha,String lugar,String hora, String capacidad, String privacidad, String descripcion,String creador,Integer idPlan) {
         this.setNombre(nombre);
         this.setFecha(fecha);
         this.setLugar(lugar);
@@ -31,6 +36,9 @@ public class Plan implements Serializable{
         this.setCapacidad(capacidad);
         this.setPrivacidad(privacidad);
         this.setDescripcion(descripcion);
+        this.setCreador(creador);
+        this.setIdPlan(idPlan);
+
     }
 
     public void setNombre(String nombre) {
@@ -61,6 +69,11 @@ public class Plan implements Serializable{
         this.descripcion = descripcion;
     }
 
+    public void setCreador(String creador){this.creador=creador;}
+
+    public void setIdPlan(Integer idPlan){this.idPlan=idPlan;}
+
+
     public String getNombre(){
         return this.nombre;
     }
@@ -88,4 +101,10 @@ public class Plan implements Serializable{
     public String getDescripcion() {
         return descripcion;
     }
+
+    public String getCreador(){
+        return this.creador;
+    }
+
+    public Integer getIdPlan(){ return this.idPlan; } ;
 }
