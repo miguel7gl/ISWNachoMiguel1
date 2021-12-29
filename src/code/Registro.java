@@ -1,10 +1,8 @@
 package code;
 
-import main.isw.configuration.PropertiesISW;
-import main.isw.dao.CustomerDAO;
-import main.isw.controler.CustomerControler;
 import main.isw.domain.Customer;
 import main.isw.client.Client;
+import ui.JVentanaApp;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,7 +36,7 @@ public class Registro extends JPanel implements ActionListener, WindowListener {
 
     public Registro(JVentanaApp ventana) {
         this.ventana=ventana;
-        fondo = Toolkit.getDefaultToolkit().getImage("./iniciosesion.jpg");
+        fondo = Toolkit.getDefaultToolkit().getImage("./resources/iniciosesion.jpg");
         fondo = fondo.getScaledInstance(800, 500, java.awt.Image.SCALE_SMOOTH);
 
         JbtnRegistrarse.addActionListener(this);

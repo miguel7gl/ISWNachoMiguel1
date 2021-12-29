@@ -36,8 +36,19 @@ public class CustomerControler {
 		 return idPlan;
 	}
 
-	public void updateParticipantes(Integer idPlan,String usuario){CustomerDAO.updateParticipantes(idPlan,usuario);}//Añadir particiàntes
+	public void updateParticipantes(Integer idPlan,String usuario){CustomerDAO.updateParticipantes(idPlan,usuario);}//Añadir participantes
 
-	public void borrarParticipantes(Integer idPlan,String usuario){CustomerDAO.borrarParticipantes(idPlan,usuario);}
+	public void borrarParticipantes(Integer idPlan,String usuario){CustomerDAO.borrarParticipantes(idPlan,usuario);}//Borrar participantes
+
+	public String getCorreoCliente(String usuario){//Obtener correo cliente
+		String correo=CustomerDAO.getCorreoCliente(usuario);
+		return correo;
+	}
+
+	public String getPasswordCliente(String usuario){//Obtener password cliente
+		String password=CustomerDAO.getPasswordCliente(usuario);
+		return password;
+	}
+	public void updateCliente(String usuario,String correo,String password){CustomerDAO.updateCliente(usuario,correo,password);}
 
 }

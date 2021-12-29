@@ -1,6 +1,5 @@
 package code;
-import main.isw.client.Client;
-import main.isw.configuration.PropertiesISW;
+import ui.JVentanaApp;
 
 public class Aplicacion { //Clase a ejecutar tras hacer el run del SocketServer
 

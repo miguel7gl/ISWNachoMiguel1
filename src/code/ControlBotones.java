@@ -54,7 +54,7 @@ class ControlBotones extends DefaultCellEditor { //Esta clase se encarga de llev
             if (columna == 8) { //Columna descripción
                 JOptionPane.showMessageDialog(boton, DisplayPlans.tablaPlanes.getValueAt(fila, columna).toString());
             } else if (columna == 9) {//Columna unirse
-                JOptionPane.showMessageDialog(boton, label + "Pulsado sobre el plan situado en la fila: " + fila);
+                JOptionPane.showMessageDialog(boton, label + "El usuario se ha unido al plan ");
                 System.out.println("Usuario:"+InicioSesion.nombreTxt);
                 Integer idPlan=Integer.parseInt(DisplayPlans.tablaPlanes.getValueAt(fila,7).toString()); //valor idPlan
                 //Enviamos petición de actualización de la tabla participantes
@@ -64,7 +64,7 @@ class ControlBotones extends DefaultCellEditor { //Esta clase se encarga de llev
                 Client.enviarPeticion("/updateParticipantes", session);
 
             } else if (columna == 10) {//Columna abandonar
-                JOptionPane.showMessageDialog(boton, label + "Pulsado sobre el plan situado en la fila: " + fila);
+                JOptionPane.showMessageDialog(boton, label + "El usuario ha abandonado el plan");
                 Integer idPlan=Integer.parseInt(DisplayPlans.tablaPlanes.getValueAt(fila,7).toString()); //valor idPlan
                 //Enviamos petición de actualización de la tabla participantes
                 HashMap<String, Object> session = new HashMap<String, Object>();

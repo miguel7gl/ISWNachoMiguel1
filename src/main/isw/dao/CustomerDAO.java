@@ -65,7 +65,7 @@ public class CustomerDAO {
 		}
 
 	}
-	public static Boolean getCliente(Customer customer) { //obtener cliente para el inicio de sesión
+	public static Boolean getCliente(Customer customer) { //Obtener cliente para el inicio de sesión
 		boolean salidaInicioSesion;
 		Connection con=ConnectionDAO.getInstance().getConnection();
 		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM usuarios WHERE nombre='"+customer.getNombre()+"' AND  password='"+ customer.getPassword()+"'");
@@ -111,7 +111,7 @@ public class CustomerDAO {
 				System.out.println(ex.getMessage());
 			}
 		}
-	public static void borrarParticipantes(Integer idPlan,String usuario) { //Añadir participante a un plan
+	public static void borrarParticipantes(Integer idPlan,String usuario) { //Borrar participante de un plan
 		Connection con=ConnectionDAO.getInstance().getConnection();
 		try (PreparedStatement pst = con.prepareStatement("Delete from participantes where id_plan="+idPlan+"and usuario='"+ usuario +"';");
 			 ResultSet rs = pst.executeQuery()) {
@@ -137,6 +137,50 @@ public class CustomerDAO {
 			idPlan=0;
 		}
 		return idPlan;
+	}
+	public static String getCorreoCliente(String usuario) { //Obtener correo para el mostrado de perfil
+		Connection con=ConnectionDAO.getInstance().getConnection();
+		String correo="";
+		try (PreparedStatement pst = con.prepareStatement("SELECT correo FROM usuarios WHERE nombre='"+usuario+"';");
+			 ResultSet rs = pst.executeQuery()) {
+
+			while (rs.next()) {
+				System.out.println("El usuario y contraseña coinciden con la base de datos");
+				correo = rs.getString(1);
+				System.out.println(correo);
+			}
+		} catch (SQLException ex) {
+
+			System.out.println(ex.getMessage());
+		}
+		return correo;
+	}
+	public static String getPasswordCliente(String usuario) { //Obtener contraseña para el mostrado  de perfil
+		Connection con=ConnectionDAO.getInstance().getConnection();
+		String password="";
+		try (PreparedStatement pst = con.prepareStatement("SELECT password FROM usuarios WHERE nombre='"+usuario+"';");
+			 ResultSet rs = pst.executeQuery()) {
+
+			while (rs.next()) {
+				System.out.println("El usuario y contraseña coinciden con la base de datos");
+				password = rs.getString(1);
+
+			}
+		} catch (SQLException ex) {
+
+			System.out.println(ex.getMessage());
+		}
+		return password;
+	}
+	public static void updateCliente(String usuario,String correo,String password) { //Modificar datos usuario
+		Connection con=ConnectionDAO.getInstance().getConnection();
+		try (PreparedStatement pst = con.prepareStatement("Update usuarios set correo='"+correo+"', password='"+password+"' where nombre='"+ usuario +"';");
+			 ResultSet rs = pst.executeQuery()) {
+
+		} catch (SQLException ex) {
+
+			System.out.println(ex.getMessage());
+		}
 	}
 
 	}

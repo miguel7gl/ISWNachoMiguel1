@@ -1,5 +1,6 @@
 package code;
 import main.isw.client.Client;
+import ui.JVentanaApp;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,7 +47,7 @@ public class CrearPlan extends JPanel implements ActionListener,WindowListener {
         super();
         this.ventana = ventana;
 
-        fondo = Toolkit.getDefaultToolkit().getImage("./crearplanes.jpg");
+        fondo = Toolkit.getDefaultToolkit().getImage("./resources/crearplanes.jpg");
         fondo = fondo.getScaledInstance(800, 500, java.awt.Image.SCALE_SMOOTH);
 
         crear = new JButton("CREAR");

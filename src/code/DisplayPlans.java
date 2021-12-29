@@ -2,7 +2,6 @@ package code;
 
 import javax.swing.*;
 
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import javax.swing.table.TableCellRenderer;
@@ -13,6 +12,7 @@ import java.awt.Toolkit;
 import java.util.ArrayList;
 
 import main.isw.domain.Plan;
+import ui.JVentanaApp;
 
 public class DisplayPlans extends JPanel implements ActionListener, WindowListener,MouseListener// Este JPanel va a mostrar todos los planes
 {
@@ -31,7 +31,7 @@ public class DisplayPlans extends JPanel implements ActionListener, WindowListen
         super();
         this.ventana=ventana;
         ventana.setLayout(new BorderLayout());
-        fondo = Toolkit.getDefaultToolkit().getImage("./fotofondo.jpg");
+        fondo = Toolkit.getDefaultToolkit().getImage("./resources/fotofondo.jpg");
         fondo = fondo.getScaledInstance(800,500,java.awt.Image.SCALE_SMOOTH);
         tablaPlanes_model=new DefaultTableModel(nombresColumna,0); //Establecemos el formato default de la tabla
 
@@ -68,6 +68,9 @@ public class DisplayPlans extends JPanel implements ActionListener, WindowListen
         tablaPlanes.getColumn("Abandonar").setCellEditor(new ControlBotones(new JCheckBox()));
 
         JScrollPane scrollTabla = new JScrollPane(tablaPlanes);
+
+        Color myColor = new Color(245, 248, 179, 233);//Color de las celdas
+        tablaPlanes.setBackground(myColor);
 
         tablaPlanes.setOpaque(false);
         scrollTabla.setOpaque(false);

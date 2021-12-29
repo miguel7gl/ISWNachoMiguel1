@@ -1,5 +1,7 @@
 package code;
 
+import ui.JVentanaApp;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -12,6 +14,7 @@ public class Menu extends JPanel  implements ActionListener{
     //private Image fondo;
     public JButton registro;
     public JButton login;
+    public JButton perfil;
     public Image fondo;
 
 
@@ -23,21 +26,28 @@ public class Menu extends JPanel  implements ActionListener{
 
 
 
-        fondo = Toolkit.getDefaultToolkit().getImage("./plantastic.jpg");
+        fondo = Toolkit.getDefaultToolkit().getImage("./resources/plantastic.jpg");
         fondo = fondo.getScaledInstance(800, 500, java.awt.Image.SCALE_SMOOTH);
+        //botones
         registro=new JButton("REGISTRARSE");
         login=new JButton("LOG IN ");
+
+        //posición y tamaño
         registro.setBounds(315, 300, 150, 30);
         login.setBounds(315, 250, 150, 30);
+
 
         registro.setBackground(new Color(228, 255, 222));
         login.setBackground(new Color(228, 255, 222));
 
+
         registro.addActionListener(this);
         login.addActionListener(this);
 
+
         ventana.add(login);
         ventana.add(registro);
+
 
         this.setVisible(true);
 

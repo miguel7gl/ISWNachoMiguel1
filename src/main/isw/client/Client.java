@@ -44,12 +44,13 @@ public class Client {
 		
 		
 		switch (mensajeVuelta.getContext()) {
-			case "/getCustomersResponse":
+			/*case "/getCustomersResponse": //
 				ArrayList<Customer> customerList=(ArrayList<Customer>)(mensajeVuelta.getSession().get("Customer"));
 				 for (Customer customer : customerList) {
 					 System.out.println("He leído el nombre: "+customer.getNombre()+" "+customer.getCorreo()+" con contraseña: "+customer.getPassword());
 					} 
-				break;
+				break;*/
+
 			case "/setCustomerResponse":
 
 					Boolean salida= (boolean)(mensajeVuelta.getSession().get("Salida"));
@@ -100,6 +101,30 @@ public class Client {
 			case "/borrarParticipantesResponse"	:
 				System.out.println("Se ha desapuntado correctamente el usuario del plan ");
 				break;
+			case "/getCorreoClienteResponse":
+				String correo=(String)(mensajeVuelta.getSession().get("correo"));
+				if (correo!=null)
+				{
+					InicioSesion.correo=correo;
+				}else{
+					System.out.println("Error en la obtención del correo");
+				}
+
+				break;
+			case "/getPasswordClienteResponse":
+				String password=(String)(mensajeVuelta.getSession().get("password"));
+				if (password!=null)
+				{
+					InicioSesion.password=password;
+				}else{
+					System.out.println("Error en la obtención de la contraseña");
+				}
+
+				break;
+			case "/updateClienteResponse"	:
+				System.out.println("Se ha actualizado la información del usuario correctamente ");
+				break;
+
 			default:
 				Logger.getRootLogger().info("Option not found");
 				System.out.println("\nError a la vuelta");

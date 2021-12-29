@@ -1,4 +1,7 @@
-package code;
+package ui;
+
+import code.InicioSesion;
+import code.Registro;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,8 +10,8 @@ import java.awt.event.WindowListener;
 
 public class JVentanaApp extends JFrame implements WindowListener
 {
-    Registro Registro;
-    InicioSesion InicioSesion;
+    code.Registro Registro;
+    code.InicioSesion InicioSesion;
 
     public JVentanaApp()
     {
@@ -24,6 +27,10 @@ public class JVentanaApp extends JFrame implements WindowListener
          */
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        Image icon = Toolkit.getDefaultToolkit().getImage("./resources/logo6.png");//Establecer icono de ventana
+        setIconImage(icon);
+
         this.setPreferredSize(new Dimension(800,500));
         this.pack();
         this.setResizable(false);

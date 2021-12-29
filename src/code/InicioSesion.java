@@ -10,19 +10,21 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.util.HashMap;
 
-import main.isw.domain.Customer;
 import main.isw.client.Client;
+import ui.JVentanaApp;
 
 public class InicioSesion extends JPanel implements ActionListener, WindowListener
 {
     JButton JbtnInicio = new JButton("INICIAR SESION");
     JTextField nombre = new JTextField("",4);
-    JPasswordField password = new JPasswordField("",4);
+    JPasswordField passwordF = new JPasswordField("",4);
     JLabel LabelNombre = new JLabel("Nombre:");
     JLabel LabelPassword = new JLabel("Contraseña:");
 
     public static String nombreTxt;
     static String passwordTxt;
+    public static String  correo;
+    public static String password;
 
 
     Image fondo;
@@ -35,7 +37,7 @@ public class InicioSesion extends JPanel implements ActionListener, WindowListen
         super();
         this.ventana=ventana;
 
-        fondo = Toolkit.getDefaultToolkit().getImage("./iniciosesion.jpg"); //Establecemos fondo
+        fondo = Toolkit.getDefaultToolkit().getImage("./resources/iniciosesion.jpg"); //Establecemos fondo
         fondo = fondo.getScaledInstance(800,500,java.awt.Image.SCALE_SMOOTH);
 
         JbtnInicio.addActionListener(this);
@@ -44,14 +46,14 @@ public class InicioSesion extends JPanel implements ActionListener, WindowListen
         JbtnInicio.setBackground(new Color(250, 252, 250));
 
         nombre.setBounds(385,240,130,30);
-        password.setBounds(385,290,130,30);
-        password.setEchoChar('*');
+        passwordF.setBounds(385,290,130,30);
+        passwordF.setEchoChar('*');
         LabelNombre.setBounds(307,240,130,30);
         LabelPassword.setBounds(296,290,130,30);
 
         ventana.add(JbtnInicio);
         ventana.add(nombre);
-        ventana.add(password);
+        ventana.add(passwordF);
         ventana.add(LabelNombre);
         ventana.add(LabelPassword);
     }
@@ -68,7 +70,7 @@ public class InicioSesion extends JPanel implements ActionListener, WindowListen
         if (e.getSource() == JbtnInicio) {
             System.out.println("Botón Iniciar sesión pulsado");
             nombreTxt = nombre.getText();
-            passwordTxt = password.getText();
+            passwordTxt = passwordF.getText();
             HashMap<String,Object> session =new HashMap<String, Object>();
             session.put("Nombre", (Object)nombreTxt);
             session.put("Password",(Object)passwordTxt);

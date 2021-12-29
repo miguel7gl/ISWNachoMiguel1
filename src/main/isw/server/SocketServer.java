@@ -10,13 +10,11 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import code.JVentanaApp;
-import code.Registro;
 import main.isw.controler.CustomerControler;
 import main.isw.domain.Customer;
 import main.isw.domain.Plan;
 import main.isw.message.Message;
-import code.Registro;
+
 public class SocketServer extends Thread {
 	public static final int PORT_NUMBER = 8081;
 
@@ -144,6 +142,41 @@ public class SocketServer extends Thread {
 					session=new HashMap<String, Object>();
 					session.put("idPlan",IdPlan);
 					session.put("usuario",usuario);
+					mensajeOut.setSession(session);
+					objectOutputStream.writeObject(mensajeOut);
+					break;
+
+				case "/getCorreoCliente":
+					customerControler=new CustomerControler();
+					usuario=(String)mensajeIn.getSession().get("nombre");
+					String correo=customerControler.getCorreoCliente(usuario);
+					mensajeOut.setContext("/getCorreoClienteResponse");
+					session=new HashMap<String, Object>();
+					session.put("correo",correo);
+					mensajeOut.setSession(session);
+					objectOutputStream.writeObject(mensajeOut);
+					break;
+				case "/getPasswordCliente":
+					customerControler=new CustomerControler();
+					usuario=(String)mensajeIn.getSession().get("nombre");
+					String password=customerControler.getPasswordCliente(usuario);
+					mensajeOut.setContext("/getPasswordClienteResponse");
+					session=new HashMap<String, Object>();
+					session.put("password",password);
+					mensajeOut.setSession(session);
+					objectOutputStream.writeObject(mensajeOut);
+					break;
+				case "/updateCliente": //Para llevar a cabo la modificación del perfil
+					customerControler=new CustomerControler();
+					usuario=(String)mensajeIn.getSession().get("usuario");
+					correo=(String)mensajeIn.getSession().get("correo");
+					password=(String)mensajeIn.getSession().get("password");
+					customerControler.updateCliente(usuario,correo,password);
+					mensajeOut.setContext("/updateClienteResponse");
+					session=new HashMap<String, Object>();
+					session.put("usuario",usuario);
+					session.put("correo",correo);
+					session.put("password",password);
 					mensajeOut.setSession(session);
 					objectOutputStream.writeObject(mensajeOut);
 					break;
